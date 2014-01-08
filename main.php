@@ -1,4 +1,7 @@
 <html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
   <body>
     <?php
 
@@ -8,7 +11,7 @@
     $options = [ 'gs_bucket_name' => 'example-images' ];
     $upload_url = CloudStorageTools::createUploadUrl('/upload_handler.php', $options);
     ?>
-    <form action="<?php echo $upload_url?>" enctype="multipart/form-data" method="post">
+    <form action="<?php echo $upload_url?>" enctype="multipart/form-data" method="post" accept-charset="ISO-8859-1">
       Files to upload: <br>
       <input type="file" name="uploaded_files" size="40">
       <input type="submit" value="Send">
