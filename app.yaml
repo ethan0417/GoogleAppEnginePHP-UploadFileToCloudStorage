@@ -1,4 +1,4 @@
-application: ethan-test-php-update 
+application: ethan-test-php-update
 version: 1
 runtime: php
 api_version: 1
@@ -14,3 +14,7 @@ handlers:
 
 - url: /upload_handler.php
   script: upload_handler.php
+
+# All the php page to find the related source
+- url: /(.*\.php)
+  script: \1
