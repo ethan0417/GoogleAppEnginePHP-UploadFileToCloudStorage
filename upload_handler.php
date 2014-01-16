@@ -20,11 +20,16 @@
   
   //move_uploaded_file($gs_tmpName, "gs://example-images/".$ccc);
 
-  // Set Image ACL
-  $options = [ "gs" => ["Content-Type" => "image/jpeg", "acl" => "public-read"]];
-  $ctx = stream_context_create($options);
-  // Use rename method to add ACL setting and move file to google cloud storage.
-  rename($gs_tmpName, "gs://example-images/".$ccc, $ctx);
+  generatorPublic($gs_tmpName, $ccc);
+
+  function generatorPublic($uploadFileTmp, $FileName){
+    // Set Image ACL
+    $options = [ "gs" => ["Content-Type" => "image/jpeg", "acl" => "public-read"]];
+    $ctx = stream_context_create($options);
+    // Use rename method to add ACL setting and move file to google cloud storage.
+    rename($uploadFileTmp, "gs://example-images/".$FileName, $ctx);
+    return true;
+  }
   
   // getImageServingUrl. get images file url, but it looks like small than original.
   $imagesFile = CloudStorageTools::getImageServingUrl('gs://example-images/'.$ccc);
@@ -51,14 +56,12 @@
   }
 
   // 產生縮圖並上傳
-  /*
   $checkThumb = mkthumb_google($imagesFile_original, 'example-images', 120);
   if( $checkThumb === 'ok'){
     echo 'generator thumb pic OK';
   }else{
     echo 'generator thumb pic Fail';
   };
-  */
 
   //---------------------- 製作縮圖函式,並上傳至google cloud storage -----------------------------
   // Edit thumb picture to Google cloud storage.
@@ -101,12 +104,9 @@
     //將新圖寫入 $thumb 參數指定的縮圖檔名
     imagejpeg($picDst, 'gs://'.$thumb.'/thumb'.$orig);
     //$thumbImage = imagesPublicURL($thumb, $picDst, 'thumb');
-    echo '<br>';
-    echo $picDst;
+    //rename($picDst, "gs://example-images/thumb.jpg");
     echo '<br>';
     echo '這是縮圖裡面內容產生的';
-    echo '<br>';
-    //echo $thumbImage;
     echo '<br>';
     return 'ok';
   }
