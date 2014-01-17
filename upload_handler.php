@@ -33,31 +33,17 @@
   
   // getImageServingUrl. get images file url, but it looks like small than original.
   $imagesFile = CloudStorageTools::getImageServingUrl('gs://example-images/'.$ccc);
-  echo '這是getImageServingUrl的檔案路徑';
-  echo '<br>';
-  echo $imagesFile;
-  echo '<br>';
   
   // get original images for google cloud storage.
   $imagesFile_original = imagesPublicURL('example-images', $ccc, '');
-  echo '這是imagesFile_original回傳回來的';
-  echo '<br>';
-  echo $imagesFile_original;
-  echo '<br>';
 
   // put image file info and getPublicUrl
   function imagesPublicURL($bucketName, $imageFile, $imageThumbName){
     $imagesFile1 = CloudStorageTools::getPublicUrl('gs://'.$bucketName.'/'.$imageThumbName.$imageFile , true);
-    echo '這是imagesPublicURL產生的，利用getPublicUrl的路徑';
-    echo '<br>';
-    echo $imagesFile1;
-    echo '<br>';
     return $imagesFile1;
   }
 
   // 產生縮圖並上傳
-  echo $ccc;
-  echo '<br>';
   $checkThumb = mkthumb_google($imagesFile_original, $ccc, 'example-images', 120);
   if( $checkThumb === 'ok'){
     echo 'generator thumb pic OK';
@@ -114,10 +100,7 @@
     $thumbImage = imagesPublicURL('example-images/thumb', 'thumb'.$fileName, '');
     //$thumbImage = imagesPublicURL($thumb, $picDst, 'thumb');
     //rename($picDst, 'gs://'.$bucketName.'/thumb/'.$fileName);
-    echo '<br>';
-    echo '這是縮圖裡面內容產生的';
     echo '<img src="'.$thumbImage.'">';
-    echo '<br>';
     return 'ok';
   }
 
