@@ -10,16 +10,13 @@
   require_once 'google/appengine/api/cloud_storage/CloudStorageTools.php';
   use google\appengine\api\cloud_storage\CloudStorageTools;
 
-
   $gs_tmpName = $_FILES["uploaded_files"]['tmp_name'];
   $aaa = $_POST['fname'];
   $bbb = mb_convert_encoding($aaa, "UTF-8", "AUTO");
-  //echo "<pre>",print_r($_FILES),"</pre>";
-  //echo "<pre>",print_r($_POST),"</pre>";
+  echo "<pre>",print_r($_FILES),"</pre>";
+  echo "<pre>",print_r($_POST),"</pre>";
   $ccc = urlencode($bbb);
   
-  //move_uploaded_file($gs_tmpName, "gs://example-images/".$ccc);
-
   generatorPublic($gs_tmpName, $ccc);
 
   function generatorPublic($uploadFileTmp, $FileName){
@@ -103,8 +100,6 @@
     echo '<img src="'.$thumbImage.'">';
     return 'ok';
   }
-
-  
 ?>
   <img src='<?php echo $imagesFile ?>'>
   <img src='<?php echo $imagesFile_original ?>'>
